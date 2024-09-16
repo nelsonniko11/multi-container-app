@@ -1,0 +1,41 @@
+version: '3.8'  
+   
+services:  
+  angular-app:  
+    build: ./angular-app  
+    ports:  
+      - "4200:80"  
+    networks:  
+      - app-network
+    restart: always
+  
+  express-server:  
+    build: ./express-server  
+    ports:  
+      - "3000"  
+    networks:  
+      - app-network  
+    depends_on:  
+      - flask-api  
+      - sqlite-db  
+    restart: always
+  
+  flask-api:  
+    build: ./flask-api  
+    ports:  
+      - "5000:5000"  
+    networks:  
+      - app-network
+    restart: always
+  
+  sqlite-db:  
+    image: nouchka/sqlite3  
+    volumes:  
+      - ./database:/data  
+    networks:  
+      - app-network
+    restart: always
+   
+networks:  
+  app-network:  
+    driver: bridge  

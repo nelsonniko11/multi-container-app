@@ -1,0 +1,22 @@
+<div>
+    <h2>Grades</h2>
+    <ul>
+        <li *ngFor="let grade of grades">
+        {{ grade.studentName }} - {{ grade.subject }}: {{ grade.grade }}
+        <button (click)="deleteGrade(grade.id)">Delete</button>
+        </li>
+    </ul>
+    
+    <h3>Add Grade</h3>
+    <form (submit)="addGrade({ studentName: studentName.value, subject: subject.value, grade: grade.value })">
+        <input #studentName placeholder="Student Name" />
+        <input #subject placeholder="Subject" />
+        <input #grade placeholder="Grade" />
+        <button type="submit">Add</button>
+    </form>
+    
+    <h3>Generate Text</h3>
+    <input #query placeholder="Enter query" />
+    <button (click)="generateText(query.value)">Generate</button>
+    <p>{{ generatedText }}</p>
+    </div> 
